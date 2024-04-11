@@ -7,11 +7,11 @@ O mesmo sera atualizado com frequência, em vista de ser um projeto de **estudo*
 
 - Cadastro de novos clientes, incluindo nome, sexo, endereço, e-mail e telefone.
 - Registro de animais associados a cada cliente, com informações como nome, idade, espécie, raça, entre outras.
-- Listagem, atualização e exclusão de clientes e animais cadastrados.
+- Registro, Listagem, atualização e exclusão de clientes e animais cadastrados.
 
 ## Pré-requisitos
 
-- JDK (Java Development Kit) instalado no seu sistema.
+- JDK 21.
 - IDE (Ambiente Integrado de Desenvolvimento) Java, como Eclipse, IntelliJ IDEA ou NetBeans.
 
 ## Configuração do Projeto
