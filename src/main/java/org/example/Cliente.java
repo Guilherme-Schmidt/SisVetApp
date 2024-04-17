@@ -1,7 +1,10 @@
 package org.example;
 
+import java.util.LinkedList;
+import java.util.List;
+
 public class Cliente {
-    private int id;
+    private int idCliente;
     private String nome;
     private String sexo;
     private String rua;
@@ -10,8 +13,10 @@ public class Cliente {
     private String email;
     private String telefone;
 
-    public Cliente(int id,String nome, String sexo, String rua, int numero, String cidade, String email, String telefone) {
-        this.id = id;
+    private List<Animal> animais = new LinkedList<Animal>();
+
+    public Cliente(int idCliente,String nome, String sexo, String rua, int numero, String cidade, String email, String telefone) {
+        this.idCliente = idCliente;
         this.nome = nome;
         this.sexo = sexo;
         this.rua = rua;
@@ -21,12 +26,12 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public int getId() {
-        return id;
+    public int getidCliente() {
+        return idCliente;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setId(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNome() {
@@ -83,6 +88,18 @@ public class Cliente {
 
     public void setTelefone(String telefone) {
         this.telefone = telefone;
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public void getAnimais() {
+        System.out.println(animais);
+    }
+
+    public void setAnimais(Animal animal) {
+        animais.add(animal);
     }
 
     @Override
