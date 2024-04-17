@@ -86,7 +86,7 @@ public class SisVetApp implements APICliente, APIAnimal{
         boolean encontrado = false;
 
         for(Cliente cliente : clientes) {
-            if (cliente.getIdCliente() == idCliente) {
+            if (cliente.getidCliente() == idCliente) {
                 for (Animal animal : animais) {
                     if (animal.getIdAnimal() == idAnimal) {
                         cliente.setAnimais(animal);
@@ -111,6 +111,14 @@ public class SisVetApp implements APICliente, APIAnimal{
 
     @Override
     public void listarAnimalCliente(int idCliente) {
+        for(Cliente cliente: clientes){
+
+            if(cliente.getidCliente() == idCliente){
+                System.out.println(cliente);
+                System.out.println("Animais: ");
+                cliente.getAnimais();
+            }
+        }
 
     }
 
@@ -189,19 +197,23 @@ public class SisVetApp implements APICliente, APIAnimal{
     @Override
     public void addClienteAnimal(int idAnimal, int idCliente) {
         boolean encontrado = false;
-        for(Cliente cliente: clientes){
-            if(cliente.getidCliente() == idCliente){
 
-                cliente.setAnimais(null);
-                encontrado = true;
-                break;
+        for(Animal animal : animais) {
+            if (animal.getIdAnimal() == idAnimal) {
+                for (Cliente cliente : clientes) {
+                    if (cliente.getidCliente() == idCliente) {
+                        animal.setClientes(cliente);
+                        encontrado = true;
+                        break;
+                    }
+                }
             }
         }
         if (!encontrado) {
             System.out.println("O cliente informado não existe");
         }
         else{
-            System.out.println("O curso "+idAnimal+" foi adicionado com sucesso no cliente "+idCliente);
+            System.out.println("O animal "+idAnimal+" foi adicionado com sucesso no cliente "+idCliente);
         }
     }
 
@@ -212,24 +224,38 @@ public class SisVetApp implements APICliente, APIAnimal{
 
     @Override
     public void listarClienteAnimal(int idAnimal) {
-
+        for (Animal animal : animais) {
+            if(animal.getIdAnimal() == idAnimal) {
+                System.out.println(animal);
+                System.out.println("Clientes: ");
+                animal.getClientes();
+            }
+        }
     }
 
 
     public static void main(String[] args) {
         SisVetApp app = new SisVetApp();
         app.addCliente();
-
+        app.addCliente();
         app.listarClientes();
 
         app.addAnimal();
-
+        app.addAnimal();
         app.listarAnimais();
 
-        app.addAnimalCliente(1,10);
-        app.addAnimalCliente(1,20);
-        app.addAnimalCliente(2,10);
-        app.addAnimalCliente(2,20);
+       // app.addAnimalCliente(1,10);
+       // app.addAnimalCliente(1,20);
+       // app.addAnimalCliente(2,10);
+        //.addAnimalCliente(2,20);
+
+       // app.listarAnimalCliente(1);
+        //app.listarAnimalCliente(2);
+
+        app.addClienteAnimal(10,1);
+        app.addClienteAnimal(10,2);
+
+
     }
 
 
