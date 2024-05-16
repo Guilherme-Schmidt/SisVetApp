@@ -21,4 +21,5 @@ public class Animal {
     @ManyToOne
     @JoinColumn(name = "idCliente")
     private Cliente proprietario;
+
 }

@@ -1,7 +1,7 @@
 package org.sisvetapp.Service.Cliente;
 
-
 import org.sisvetapp.Entity.Cliente;
+import org.sisvetapp.Repository.AnimalRepository;
 import org.sisvetapp.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +16,11 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+    private final AnimalRepository animalRepository;
+
+    public ClienteServiceImpl(AnimalRepository animalRepository) {
+        this.animalRepository = animalRepository;
+    }
 
     @Override
     public List<Cliente> listAllCliente() throws IOException {
@@ -49,12 +54,18 @@ public class ClienteServiceImpl implements ClienteService {
     }
     @Override
     public void deleteCliente(int idCliente) {
-        Optional<Cliente> clienteEncontrado = clienteRepository.findById(idCliente);
-
-        clienteEncontrado.ifPresent(
-                p-> {
-                    clienteRepository.delete(clienteEncontrado.get());
-                }
-        );
+        Optional<Cliente> clienteOptional = clienteRepository.findById(idCliente);
+        if (clienteOptional.isPresent()) {
+            Cliente cliente = clienteOptional.get();
+            // Exclua os animais associados a este cliente
+            animalRepository.deleteByProprietario(cliente);
+            // Exclua o cliente
+            clienteRepository.deleteById(idCliente);
+        } else {
+            throw new RuntimeException("Cliente não encontrado para o ID fornecido: " + idCliente);
+        }
     }
+
+
+
 }
