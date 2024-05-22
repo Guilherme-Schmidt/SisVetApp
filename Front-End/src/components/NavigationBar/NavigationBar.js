@@ -25,7 +25,7 @@ function NavigationBar() {
             <Link
               className="btn btn-outline-light btn-lg m-1"
               role="button"
-              to="/listarServidores"
+              to="/listarClientes"
             >
               Servidores
             </Link>

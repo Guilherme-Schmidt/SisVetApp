@@ -20,8 +20,6 @@ function App() {
     nome: "",
     sexo: "",
     rua: "",
-    vinculo: "",
-    cargo: "",
     numero: "",
     cidade: "",
     email: "",

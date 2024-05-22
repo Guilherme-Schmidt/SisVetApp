@@ -5,16 +5,16 @@ import { useNavigate, useParams } from "react-router-dom";
 
 function EditGovEmployee({ apiURL, form, setForm }) {
   const navigate = useNavigate();
-  const { matricula } = useParams();
+  const {idCliente} = useParams();
 
   useEffect(() => {
     const fetchEmployee = async () => {
-      const response = await axios.get(`${apiURL}/listarServidor/${matricula}`);
+      const response = await axios.get(`${apiURL}/listarCliente/${idCliente}`);
       setForm(response.data);
     };
 
     fetchEmployee();
-  }, [matricula]);
+  }, [idCliente]);
 
   // monitorar todas as mudanças do nosso formulário
   const handleChange = (e) => {
@@ -35,8 +35,8 @@ function EditGovEmployee({ apiURL, form, setForm }) {
       const clone = { ...form };
       //delete clone._id;
 
-      await axios.put(`${apiURL}/editarServidor/${matricula}`, clone);
-      navigate("/listarServidores");
+      await axios.put(`${apiURL}/editarCliente/${idCliente}`, clone);
+      navigate("/listarClientes");
     } catch (error) {
       console.log(error);
     }

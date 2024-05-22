@@ -33,8 +33,6 @@ function AddCliente({ apiURL, form, setForm }) {
       nome: "",
       sexo: "",
       rua: "",
-      vinculo: "",
-      cargo: "",
       numero: "",
       cidade: "",
       email: "",
@@ -66,7 +64,7 @@ function AddCliente({ apiURL, form, setForm }) {
               <Form.Label>Número da matrícula</Form.Label>
               <Form.Control
                 required
-                type="number"
+                type="text"
                 placeholder="Insira o número da matrícula"
                 name="idCliente"
                 value={form.idCliente}
@@ -116,7 +114,7 @@ function AddCliente({ apiURL, form, setForm }) {
               <Form.Label>Numero</Form.Label>
               <Form.Control
                 required
-                type="text"
+                type="number"
                 placeholder="Insira o Numero da Residencia"
                 name="numero"
                 value={form.numero}
