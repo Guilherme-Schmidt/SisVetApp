@@ -72,81 +72,42 @@ function EditGovEmployee({ apiURL, form, setForm }) {
               />
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Foto do servidor</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o link da foto do servidor?"
-                name="foto"
-                value={form.foto}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+          
         </Row>
+
         <Row>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Órgão</Form.Label>
+              <Form.Label>Rua</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar o nome do órgão ao qual o servidor está vinculado?"
-                name="orgao"
-                value={form.orgao}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group>
-              <Form.Label>Alterar o Tipo de vínculo?</Form.Label>
-              <Form.Select
-                value={form.vinculo} 
-                name="vinculo"
-                onChange={handleChange}
-              >
-                <option value="Estatutário">Estatutário</option>
-                <option value="Comissionado">Comissionado</option>
-                <option value="Terceirizado">Terceirizado</option>
-                <option value="Estagiário">Estagiário</option>
-              </Form.Select>
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Cargo</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o cargo do servidor?"
-                name="cargo"
-                value={form.cargo}
+                placeholder="Alterar a Rua do proprietario?"
+                name="rua"
+                value={form.rua}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Lotação</Form.Label>
+              <Form.Label>Numero</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar a cidade de lotação do servidor?"
-                name="lotacao"
-                value={form.lotacao}
+                placeholder="Alterar Numero de Residencia do proprietario?"
+                name="numero"
+                value={form.numero}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Departamento de Exercício</Form.Label>
+              <Form.Label>Cidade de Residencia</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar o departamento de exercício do servidor?"
-                name="exercicio"
-                value={form.exercicio}
+                placeholder="Alterar a cidade de residencia do proprietario?"
+                name="cidade"
+                value={form.cidade}
                 onChange={handleChange}
               />
             </Form.Group>
@@ -177,45 +138,10 @@ function EditGovEmployee({ apiURL, form, setForm }) {
               />
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Número de telefone celular</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o número de telefone celular (com DDD)?"
-                name="celular"
-                value={form.celular}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
+         
         </Row>
         <Row>
           
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Naturalidade</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o nome da cidade onde o servidor nasceu?"
-                name="naturalidade"
-                value={form.naturalidade}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>CPF</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o número do CPF do servidor?"
-                name="cpf"
-                value={form.cpf}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
         </Row>
         <p />
         <Button

@@ -11,7 +11,7 @@ function NavigationBar() {
   return (
     <Navbar bg="primary" variant="primary" expand="lg">
       <Container>
-        <Navbar.Brand>SisCAPACIT 1.0</Navbar.Brand>
+        <Navbar.Brand>SisVetApp</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -27,7 +27,14 @@ function NavigationBar() {
               role="button"
               to="/listarClientes"
             >
-              Servidores
+              Proprietários
+            </Link>
+            <Link
+                className="btn btn-outline-light btn-lg m-1"
+                role="button"
+                to="/listarAnimais"
+            >
+              Animal
             </Link>
           </Nav>
         </Navbar.Collapse>

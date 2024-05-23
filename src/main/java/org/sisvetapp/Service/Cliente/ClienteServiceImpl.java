@@ -66,6 +66,18 @@ public class ClienteServiceImpl implements ClienteService {
         }
     }
 
-
+    @Override
+    public void deleteClienteAndAnimais(int idCliente) {
+        Optional<Cliente> clienteOptional = clienteRepository.findById(idCliente);
+        if (clienteOptional.isPresent()) {
+            Cliente cliente = clienteOptional.get();
+            // Exclua os animais associados a este cliente
+            animalRepository.deleteByProprietario(cliente);
+            // Exclua o cliente
+            clienteRepository.deleteById(idCliente);
+        } else {
+            throw new RuntimeException("Cliente não encontrado para o ID fornecido: " + idCliente);
+        }
+    }
 
 }

@@ -56,7 +56,7 @@ function ClienteDetails({ apiURL }) {
                       <Col>
                           <ListGroup variant="flush">
                               <ListGroup.Item action variant="primary">Rua: {employee.rua}</ListGroup.Item>
-                              <ListGroup.Item action variant="secondary">Número: {employee.Número}</ListGroup.Item>
+                              <ListGroup.Item action variant="secondary">Número: {employee.numero}</ListGroup.Item>
                               <ListGroup.Item action variant="success">Cidade: {employee.cidade}</ListGroup.Item>
                           </ListGroup>
                       </Col>

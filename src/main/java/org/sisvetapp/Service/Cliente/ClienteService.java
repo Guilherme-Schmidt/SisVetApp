@@ -18,4 +18,5 @@ public interface ClienteService {
     void updateCliente(Cliente cliente);
     void deleteCliente(int idCliente);
 
+    void deleteClienteAndAnimais(int idCliente);
 }

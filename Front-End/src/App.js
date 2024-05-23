@@ -10,28 +10,36 @@ import ClienteList from "./components/GovEmployee/ClienteList/ClienteList";
 import ClienteDetails from "./components/GovEmployee/ClienteDetails/ClienteDetails";
 import AddCliente from "./components/GovEmployee/AddCliente/AddCliente";
 import EditCliente from "./components/GovEmployee/EditCliente/EditCliente";
+import Login from "./pages/Login"
+import AnimalList from "./components/Animal/AnimalList/AnimalList";
 
 function App() {
-  
   const apiURL = "http://localhost:8080";
 
   const [form, setForm] = useState({
-    idCliente: "",
-    nome: "",
-    sexo: "",
-    rua: "",
-    numero: "",
-    cidade: "",
-    email: "",
-    telefone: "",
+        idCliente: "",
+        nome: "",
+        sexo: "",
+        rua: "",
+        numero: "",
+        cidade: "",
+        email: "",
+        telefone: "",
+        raca:"",
+        especie:"",
+        cor:"",
+      prorietario:""
   });
 
-  
   return (
     <div className="App bg-light" style={{ height: "100vh" }}>
       <NavigationBar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+
+        <Route
+          path="/"
+          element={<ClienteList apiURL={apiURL} form={form} setForm={setForm} />}
+        />
         <Route
           path="/listarClientes"
           element={<ClienteList apiURL={apiURL} />}
@@ -53,6 +61,12 @@ function App() {
           }
         />
         <Route path="*" element={<ErrorPage />} />
+          <Route
+              path="/listarAnimais"
+              element={
+                  <AnimalList apiURL={apiURL} form={form} setForm={setForm} />
+              }
+          />
       </Routes>
       <Footer />
     </div>

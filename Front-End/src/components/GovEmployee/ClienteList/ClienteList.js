@@ -1,91 +1,115 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Container, Form, FormLabel, Spinner, Table } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
+import { Button, Container, Form, Spinner, Table } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 
-function GovEmployeeList({ apiURL }) {
-    const [employees, setEmployees] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
-    const [search, setSearch] = useState("");
-    const navigate = useNavigate();
-    const path = '/listarClientes';
-    const url = `${apiURL}${path}`;
+function ClienteList({ apiURL }) {
+  const [employees, setClientes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const navigate = useNavigate();
+  const path = "/listarClientes";
+  const url = `${apiURL}${path}`;
 
-    useEffect(() => {
-        try {
-            const fetchEmployees = async () => {
-                const response = await axios.get(url)
-                setEmployees(response.data)
-                setIsLoading(false)
-            }
-
-            fetchEmployees()
-        } catch (error) {
-            console.log(error)
-        }
-    }, []);
-
-    const deleteEmployee = async (matricula) => {
-            await axios.delete(`${apiURL}/excluirCliente/${matricula}`);
-            navigate("/listarClientes");
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await axios.get(url);
+        setClientes(response.data);
+        setIsLoading(false);
+        fetchClientes();
+      } catch (error) {
+        console.log(error);
+      }
     };
 
-    const renderEmployees = employees
-        .filter((employee) => employee.nome.toLowerCase().includes(search.toLowerCase()))
-        .map((employee) => {
-            return (
-                <tr key={employee._id}>
-                    
-                    <td>{employee.nome}</td>
-                    <td>{employee.cidade}</td>
-                    <td>{employee.telefone}</td>
-                    <td>{employee.email}</td>
-                    <td style={{width:'250px'}}>
-                        <Link className="btn btn-outline-primary btn-sm m-1" role="button" to={`/listarCliente/${employee.idCliente}`}>Detalhar</Link>
-                        <Link className="btn btn-outline-secondary btn-sm m-1" role="button" to={`/editarServidor/${employee.matricula}`}>Alterar</Link>
-                        <Button variant="danger" size="sm" onClick={() => {window.confirm("Deseja realmente EXCLUIR?") && deleteEmployee(employee.matricula)}}>Excluir</Button>     
-                    </td>
-                </tr>
-            )
-        })
+    fetchClientes();
+  }, []);
 
-    return (
-        <Container>
-            <Form className="my-4">
-                <FormLabel>
-                    <h3>Total de Servidores:{employees.length}</h3>
-                </FormLabel>
-                <Form.Control
-                    type="search"
-                    placeholder="Procurar servidor"
-                    value={ search }
-                    onChange={ (e) => setSearch(e.target.value) }
-                />
-                < p/>
-                <Button variant="info" size="sm">
-                        <Link className="nav-link" to="/cadastrarServidor">Novo Servidor</Link>
-                </Button>
-            </Form>
-            {isLoading && <Spinner className="" animation="border" />}
-            {!isLoading &&
-                <Table className="mt-4" striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Nome</th>
-                            <th>Cidade</th>
-                            <th>Telefone</th>
-                            <th>Email</th>
-                             <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        { renderEmployees }
-                    </tbody>
-                </Table>
-            }
-        </Container>
+  const deleteEmployee = async (idCliente) => {
+    await axios.delete(`${apiURL}/excluirCliente/${idCliente}`);
+    navigate("/listarClientes");
+};
+
+
+  const renderClientes = employees
+    .filter((employee) =>
+      employee.nome.toLowerCase().includes(search.toLowerCase())
     )
+    .map((employee) => {
+      return (
+        <tr key={employee._id}>
+          <td>{employee.nome}</td>
+          <td>{employee.cidade}</td>
+          <td>{employee.telefone}</td>
+          <td>{employee.email}</td>
+          <td style={{ width: "250px" }}>
+            <Link
+              className="btn btn-outline-primary btn-sm m-1"
+              role="button"
+              to={`/listarCliente/${employee.idCliente}`}
+            >
+              Detalhar
+            </Link>
+            <Link
+              className="btn btn-outline-secondary btn-sm m-1"
+              role="button"
+              to={`/editarServidor/${employee.matricula}`}
+            >
+              Alterar
+            </Link>
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => {
+                window.confirm("Deseja realmente EXCLUIR?") &&
+                  deleteEmployee(employee.matricula);
+              }}
+            >
+              Excluir
+            </Button>
+          </td>
+        </tr>
+      );
+    });
+
+  return (
+    <Container>
+      <Form className="my-4">
+        <Form.Control
+          type="search"
+          placeholder="Buscar por nome"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button variant="info" size="sm" className="mt-3">
+          <Link
+            className="nav-link"
+            to="/cadastrarCliente"
+            style={{ color: "#fff" }}
+          >
+            Novo Cliente
+          </Link>
+        </Button>
+      </Form>
+      {isLoading ? (
+        <Spinner animation="border" />
+      ) : (
+        <Table className="mt-4" striped bordered hover>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Telefone</th>
+              <th>Endereço</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>{renderClientes}</tbody>
+        </Table>
+      )}
+    </Container>
+  );
 }
 
-export default GovEmployeeList;
+export default ClienteList;

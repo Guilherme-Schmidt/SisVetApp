@@ -16,16 +16,21 @@ function AddCliente({ apiURL, form, setForm }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     try {
-      // requisição axios.post
-      await axios.post(url, form);
-      // navegação para a página de funcionários
-      navigate("/listarClientes");
+      const response = await axios.post(url, form);
+      navigate('/listarClientes');
     } catch (error) {
-      console.log(error);
+      if (error.response && error.response.status === 403) {
+        // Usuário não tem permissão para acessar o recurso
+        alert('Você não tem permissão para cadastrar clientes.');
+      } else {
+        // Outro erro ocorreu
+        console.error('Erro:', error.message);
+      }
     }
   };
+  
 
   useEffect(() => {
     setForm({
@@ -64,7 +69,7 @@ function AddCliente({ apiURL, form, setForm }) {
               <Form.Label>Número da matrícula</Form.Label>
               <Form.Control
                 required
-                type="text"
+                type="number"
                 placeholder="Insira o número da matrícula"
                 name="idCliente"
                 value={form.idCliente}
@@ -114,7 +119,7 @@ function AddCliente({ apiURL, form, setForm }) {
               <Form.Label>Numero</Form.Label>
               <Form.Control
                 required
-                type="number"
+                type="text"
                 placeholder="Insira o Numero da Residencia"
                 name="numero"
                 value={form.numero}
