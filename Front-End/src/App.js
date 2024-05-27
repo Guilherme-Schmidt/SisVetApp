@@ -1,17 +1,18 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { useState } from "react";
-import Footer from "./components/Footer/Footer";
 import ErrorPage from "./pages/ErrorPage";
 import ClienteList from "./components/GovEmployee/ClienteList/ClienteList";
 import ClienteDetails from "./components/GovEmployee/ClienteDetails/ClienteDetails";
 import AddCliente from "./components/GovEmployee/AddCliente/AddCliente";
 import EditCliente from "./components/GovEmployee/EditCliente/EditCliente";
-import Login from "./pages/Login"
+import Login from "./Login"
 import AnimalList from "./components/Animal/AnimalList/AnimalList";
+import AddAnimal from "./components/Animal/AddAnimal/AddAnimal"
+import AnimalDetails from "./components/Animal/AnimalDetails/AnimalDetails";
+import EditAnimal from "./components/Animal/EditAnimal/EditAnimal";
 
 function App() {
   const apiURL = "http://localhost:8080";
@@ -28,7 +29,8 @@ function App() {
         raca:"",
         especie:"",
         cor:"",
-      prorietario:""
+        prorietario:"",
+        foto:""
   });
 
   return (
@@ -36,10 +38,10 @@ function App() {
       <NavigationBar />
       <Routes>
 
-        <Route
+      {   <Route
           path="/"
-          element={<ClienteList apiURL={apiURL} form={form} setForm={setForm} />}
-        />
+          element={<Login apiURL={apiURL} form={form} setForm={setForm} />}
+        /> }
         <Route
           path="/listarClientes"
           element={<ClienteList apiURL={apiURL} />}
@@ -60,6 +62,9 @@ function App() {
             <EditCliente apiURL={apiURL} form={form} setForm={setForm} />
           }
         />
+
+        {/* ANIMAL */}
+
         <Route path="*" element={<ErrorPage />} />
           <Route
               path="/listarAnimais"
@@ -67,8 +72,27 @@ function App() {
                   <AnimalList apiURL={apiURL} form={form} setForm={setForm} />
               }
           />
+          <Route
+              path="/cadastrarAnimal"
+              element={
+                  <AddAnimal apiURL={apiURL} form={form} setForm={setForm} />
+              }
+          />
+          <Route
+              path="/listarAnimal/:idAnimal"
+              element={
+                  <AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />
+              }
+          />
+          <Route
+          path="/editarAnimal/:idAnimal"
+          element={
+            <EditAnimal apiURL={apiURL} form={form} setForm={setForm} />
+          }
+        />
       </Routes>
-      <Footer />
+      
+
     </div>
   );
 }

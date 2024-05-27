@@ -1,13 +1,30 @@
 import axios from "axios";
-import { useEffect } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { useEffect,useState } from "react";
+import { Button, Col, Container, Form, Row,Modal  } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
+import WebcamCapture from "./WebcamCapture"; // Importe o componente de captura de webcam
 
 function AddCliente({ apiURL, form, setForm }) {
   const navigate = useNavigate();
   const path = "/cadastrarCliente";
   const url = `${apiURL}${path}`;
+
+  const [showWebcamModal, setShowWebcamModal] = useState(false);
+
+  const handleWebcamClose = () => setShowWebcamModal(false);
+
+  const handleWebcamCapture = () => {
+    setShowWebcamModal(true);
+  };
+
+  // Função para receber a imagem capturada da webcam
+  const handleWebcamSnapshot = (imageData) => {
+    // Atualizar o estado do formulário com a imagem capturada
+    setForm({ ...form, foto: imageData });
+    // Fechar o modal da webcam
+    setShowWebcamModal(false);
+  };
 
   const handleChange = (e) => {
     //monitoramento dos inputs
@@ -16,21 +33,20 @@ function AddCliente({ apiURL, form, setForm }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     try {
       const response = await axios.post(url, form);
-      navigate('/listarClientes');
+      navigate("/listarClientes");
     } catch (error) {
       if (error.response && error.response.status === 403) {
         // Usuário não tem permissão para acessar o recurso
-        alert('Você não tem permissão para cadastrar clientes.');
+        alert("Você não tem permissão para cadastrar clientes.");
       } else {
         // Outro erro ocorreu
-        console.error('Erro:', error.message);
+        console.error("Erro:", error.message);
       }
     }
   };
-  
 
   useEffect(() => {
     setForm({
@@ -42,6 +58,7 @@ function AddCliente({ apiURL, form, setForm }) {
       cidade: "",
       email: "",
       telefone: "",
+      foto:""
     });
   }, []);
 
@@ -82,7 +99,6 @@ function AddCliente({ apiURL, form, setForm }) {
           <h4>Informações Funcionais</h4>
         </Row>
         <Row>
-         
           <Col>
             <Form.Group className="mb-3">
               <Form.Label>Sexo</Form.Label>
@@ -174,7 +190,29 @@ function AddCliente({ apiURL, form, setForm }) {
             </Form.Group>
           </Col>
         </Row>
-       
+        <Row>
+          <Button variant="primary" onClick={handleWebcamCapture}>
+            Capturar Foto da Webcam
+          </Button>
+
+          {/* Modal para captura de webcam */}
+          <Modal show={showWebcamModal} onHide={handleWebcamClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Capturar Foto da Webcam</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <WebcamCapture
+                onSnapshot={handleWebcamSnapshot} // Passa a função para receber a imagem capturada
+                onClose={handleWebcamClose} // Passa a função para fechar o modal
+              />
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleWebcamClose}>
+                Fechar
+              </Button>
+            </Modal.Footer>
+          </Modal>
+        </Row>
         <p />
         <Button
           variant="secondary"

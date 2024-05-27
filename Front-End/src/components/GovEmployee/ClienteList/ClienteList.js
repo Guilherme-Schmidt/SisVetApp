@@ -54,7 +54,7 @@ function ClienteList({ apiURL }) {
             <Link
               className="btn btn-outline-secondary btn-sm m-1"
               role="button"
-              to={`/editarServidor/${employee.matricula}`}
+              to={`/editarCliente/${employee.idCliente}`}
             >
               Alterar
             </Link>
@@ -63,7 +63,7 @@ function ClienteList({ apiURL }) {
               size="sm"
               onClick={() => {
                 window.confirm("Deseja realmente EXCLUIR?") &&
-                  deleteEmployee(employee.matricula);
+                  deleteEmployee(employee.idCliente);
               }}
             >
               Excluir

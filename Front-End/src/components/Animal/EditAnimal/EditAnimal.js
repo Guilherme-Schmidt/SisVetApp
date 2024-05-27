@@ -3,18 +3,18 @@ import { useEffect } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 
-function EditGovEmployee({ apiURL, form, setForm }) {
+function EditAnimal({ apiURL, form, setForm }) {
   const navigate = useNavigate();
-  const {idCliente} = useParams();
+  const {idAnimal} = useParams();
 
   useEffect(() => {
-    const fetchEmployee = async () => {
-      const response = await axios.get(`${apiURL}/listarCliente/${idCliente}`);
+    const fetchAnimal = async () => {
+      const response = await axios.get(`${apiURL}/listarAnimal/${idAnimal}`);
       setForm(response.data);
     };
 
-    fetchEmployee();
-  }, [idCliente]);
+    fetchAnimal();
+  }, [idAnimal]);
 
   // monitorar todas as mudanças do nosso formulário
   const handleChange = (e) => {
@@ -35,8 +35,8 @@ function EditGovEmployee({ apiURL, form, setForm }) {
       const clone = { ...form };
       //delete clone._id;
 
-      await axios.put(`${apiURL}/editarCliente/${idCliente}`, clone);
-      navigate("/listarClientes");
+      await axios.put(`${apiURL}/editarAnimal/${idAnimal}`, clone);
+      navigate("/listarAnimais");
     } catch (error) {
       console.log(error);
     }
@@ -45,12 +45,12 @@ function EditGovEmployee({ apiURL, form, setForm }) {
   return (
     <Container>
       <p />
-      <h2>Alterar proprietario</h2>
+      <h2>Alterar Animal</h2>
       <Form onSubmit={handleSubmit}>
         <Row>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Número da matrícula do proprietario</Form.Label>
+              <Form.Label>Número da matrícula do Animal</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Alterar o número da matrícula?"
@@ -62,10 +62,10 @@ function EditGovEmployee({ apiURL, form, setForm }) {
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Nome do proprietario</Form.Label>
+              <Form.Label>Nome do Animal</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar o nome completo do proprietario?"
+                placeholder="Alterar o nome completo do Animal?"
                 name="nome"
                 value={form.nome}
                 onChange={handleChange}
@@ -81,68 +81,39 @@ function EditGovEmployee({ apiURL, form, setForm }) {
               <Form.Label>Rua</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar a Rua do proprietario?"
-                name="rua"
-                value={form.rua}
+                placeholder="Alterar a idade do animal?"
+                name="idade"
+                value={form.idade}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Numero</Form.Label>
+              <Form.Label>Peso</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar Numero de Residencia do proprietario?"
-                name="numero"
-                value={form.numero}
+                placeholder="Alterar Peso do animal?"
+                name="peso"
+                value={form.peso}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
           <Col>
             <Form.Group className="mb-3">
-              <Form.Label>Cidade de Residencia</Form.Label>
+              <Form.Label>Alergia</Form.Label>
               <Form.Control
                 type="text"
-                placeholder="Alterar a cidade de residencia do proprietario?"
-                name="cidade"
-                value={form.cidade}
+                placeholder="Alterar a alergia do animal?"
+                name="alergia"
+                value={form.alergia}
                 onChange={handleChange}
               />
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Endereço de e-mail</Form.Label>
-              <Form.Control
-                type="email"
-                placeholder="Alterar o endereço de e-mail do servidor?"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label>Número de telefone</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Alterar o número de telefone fixo (com DDD)?"
-                name="telefone"
-                value={form.telefone}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-         
-        </Row>
-        <Row>
-          
-        </Row>
+       
         <p />
         <Button
           variant="secondary"
@@ -160,4 +131,4 @@ function EditGovEmployee({ apiURL, form, setForm }) {
   );
 }
 
-export default EditGovEmployee;
+export default EditAnimal;
