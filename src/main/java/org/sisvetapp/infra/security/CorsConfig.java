@@ -1,4 +1,4 @@
-package org.sisvetapp.Controller;
+package org.sisvetapp.infra.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

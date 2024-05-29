@@ -3,28 +3,15 @@ import { useEffect,useState } from "react";
 import { Button, Col, Container, Form, Row,Modal  } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
-import WebcamCapture from "./WebcamCapture"; // Importe o componente de captura de webcam
+
 
 function AddCliente({ apiURL, form, setForm }) {
   const navigate = useNavigate();
   const path = "/cadastrarCliente";
   const url = `${apiURL}${path}`;
 
-  const [showWebcamModal, setShowWebcamModal] = useState(false);
+  
 
-  const handleWebcamClose = () => setShowWebcamModal(false);
-
-  const handleWebcamCapture = () => {
-    setShowWebcamModal(true);
-  };
-
-  // Função para receber a imagem capturada da webcam
-  const handleWebcamSnapshot = (imageData) => {
-    // Atualizar o estado do formulário com a imagem capturada
-    setForm({ ...form, foto: imageData });
-    // Fechar o modal da webcam
-    setShowWebcamModal(false);
-  };
 
   const handleChange = (e) => {
     //monitoramento dos inputs
@@ -190,29 +177,7 @@ function AddCliente({ apiURL, form, setForm }) {
             </Form.Group>
           </Col>
         </Row>
-        <Row>
-          <Button variant="primary" onClick={handleWebcamCapture}>
-            Capturar Foto da Webcam
-          </Button>
-
-          {/* Modal para captura de webcam */}
-          <Modal show={showWebcamModal} onHide={handleWebcamClose}>
-            <Modal.Header closeButton>
-              <Modal.Title>Capturar Foto da Webcam</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <WebcamCapture
-                onSnapshot={handleWebcamSnapshot} // Passa a função para receber a imagem capturada
-                onClose={handleWebcamClose} // Passa a função para fechar o modal
-              />
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleWebcamClose}>
-                Fechar
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Row>
+        
         <p />
         <Button
           variant="secondary"
