@@ -13,7 +13,8 @@ import AddAnimal from "./components/Animal/AddAnimal/AddAnimal";
 import AnimalDetails from "./components/Animal/AnimalDetails/AnimalDetails";
 import EditAnimal from "./components/Animal/EditAnimal/EditAnimal";
 import AdminList from "./components/Administradores/AdminList";
-import Login from "./components/auth/LoginPage";
+import Login from "./Login";
+import Cadastro from "./Cadastro";
 function App() {
   const apiURL = "http://localhost:8080";
 
@@ -38,9 +39,14 @@ function App() {
       <NavigationBar />
       <Routes>
       <Route
-          path="/"
+          path="/auth/register"
+          element={<Cadastro apiURL={apiURL} form={form} setForm={setForm} />}
+        />
+      <Route
+          path="/auth/login"
           element={<Login apiURL={apiURL} form={form} setForm={setForm} />}
         />
+
       <Route
           path="/administradores"
           element={<AdminList apiURL={apiURL} />}

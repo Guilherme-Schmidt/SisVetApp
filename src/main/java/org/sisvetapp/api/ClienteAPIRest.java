@@ -1,5 +1,6 @@
 package org.sisvetapp.api;
 
+import org.sisvetapp.Entity.Animal;
 import org.sisvetapp.Entity.Cliente;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

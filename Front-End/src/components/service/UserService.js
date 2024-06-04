@@ -87,6 +87,21 @@ class UserService{
         }
     }
 
+    static async getAllClientes(token) {
+        try {
+            const response = await axios.get(
+                `${UserService.BASE_URL}/listarClientes`,
+                {
+                    headers: { Authorization: `Bearer ${token}` }
+                }
+            );
+            return response.data;
+        } catch (err) {
+            throw err;
+        }
+    }
+    
+
     /**AUTHENTICATION CHECKER */
     static logout(){
         localStorage.removeItem('token')

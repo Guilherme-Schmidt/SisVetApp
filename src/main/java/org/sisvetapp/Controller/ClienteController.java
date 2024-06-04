@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Map;
 import java.util.LinkedHashMap;
 
+import org.sisvetapp.Entity.Animal;
 import org.sisvetapp.Entity.Cliente;
 import org.sisvetapp.Service.Cliente.ClienteService;
 import org.sisvetapp.api.ClienteAPIRest;
@@ -34,7 +35,7 @@ public class ClienteController implements ClienteAPIRest {
     @GetMapping("/listarClientes")
     public ResponseEntity<List<Cliente>> listarClientes() throws IOException {
         List<Cliente> clientes = clienteService.listAllCliente();
-        return new ResponseEntity<List<Cliente>>(clientes,HttpStatus.OK);
+        return new ResponseEntity<>(clientes, HttpStatus.OK);
     }
 
     @GetMapping("/listarCliente/{idCliente}")
