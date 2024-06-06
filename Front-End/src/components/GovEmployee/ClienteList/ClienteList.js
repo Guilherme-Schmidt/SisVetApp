@@ -1,14 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Button, Container, Form, Spinner, Table, Row, Col } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import { Button, Container, Form, Spinner, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import NavigationBar from "../../NavigationBar/NavigationBar";
 
 function ClienteList({ apiURL }) {
   const [clientes, setClientes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
-  const navigate = useNavigate();
   const path = "/listarClientes";
   const url = `${apiURL}${path}`;
 
@@ -48,7 +47,7 @@ function ClienteList({ apiURL }) {
         <td>{cliente.email}</td>
         <td style={{ width: "250px" }}>
           <Link
-            className="btn btn-outline-primary btn-sm m-1"
+            className="btn btn-warning btn-sm m-1"
             role="button"
             to={`/listarCliente/${cliente.idCliente}`}
           >
@@ -79,15 +78,16 @@ function ClienteList({ apiURL }) {
   return (
     <>
       <NavigationBar /> {/* Movendo a NavigationBar para fora do Container */}
-      <Container>
-        <Form className="my-4">
+      <Container >
+        <Form className="my-5 ">
           <Form.Control
+         
             type="search"
             placeholder="Buscar por nome"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button variant="info" size="sm" className="mt-3">
+          <Button variant="success" size="md" className="mt-4">
             <Link
               className="nav-link"
               to="/cadastrarCliente"
@@ -101,7 +101,7 @@ function ClienteList({ apiURL }) {
           <Spinner animation="border" />
         ) : (
           <Table className="mt-4" striped bordered hover>
-            <thead>
+            <thead className="">
               <tr>
                 <th>Nome</th>
                 <th>Cidade</th>

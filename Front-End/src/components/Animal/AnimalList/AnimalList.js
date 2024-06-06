@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Button, Container, Form, Spinner, Table } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
+import NavigationBar from "../../NavigationBar/NavigationBar";
 
 function AnimalList({ apiURL }) {
     const [animals, setAnimals] = useState([]);
@@ -50,6 +51,8 @@ function AnimalList({ apiURL }) {
         ));
 
     return (
+        <>
+      <NavigationBar />
         <Container>
             <Form className="my-4">
                 <Form.Control
@@ -80,6 +83,7 @@ function AnimalList({ apiURL }) {
                 </Table>
             )}
         </Container>
+        </>
     );
 }
 

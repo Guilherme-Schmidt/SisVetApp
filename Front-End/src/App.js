@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
-import NavigationBar from "./components/NavigationBar/NavigationBar";
 import { useState } from "react";
 import ErrorPage from "./pages/ErrorPage";
 import ClienteList from "./components/GovEmployee/ClienteList/ClienteList";

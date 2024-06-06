@@ -1,7 +1,8 @@
 import axios from "axios";
 import { useEffect } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row,Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import NavigationBar from "../../NavigationBar/NavigationBar";
 
 function AddAnimal({ apiURL, form, setForm }) {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ function AddAnimal({ apiURL, form, setForm }) {
         alergia: form.alergia,
         cor: form.cor,
         especie: form.especie,
-        proprietario: { idCliente: form.proprietario }
+        proprietario: { idCliente: form.proprietario },
       });
       navigate("/listarAnimais");
     } catch (error) {
@@ -53,173 +54,191 @@ function AddAnimal({ apiURL, form, setForm }) {
   }, []);
 
   return (
-    <Container>
-      <p />
-      <h2>Cadastrar Novo Animal</h2>
-      <Form onSubmit={handleSubmit}>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="nome">Nome do Animal</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="nome"
-                placeholder="Insira o nome completo do Animal"
-                name="nome"
-                value={form.nome}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-5">
-              <Form.Label htmlFor="idAnimal">Número da matrícula</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="idAnimal"
-                placeholder="Insira o número da matrícula"
-                name="idAnimal"
-                value={form.idAnimal}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <h4>Informações Funcionais</h4>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="sexo">Sexo</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="sexo"
-                placeholder="Insira o sexo do Animal"
-                name="sexo"
-                value={form.sexo}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <h4>Informações Adicionais</h4>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="idade">Idade</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="idade"
-                placeholder="Insira a idade do Animal"
-                name="idade"
-                value={form.idade}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="peso">Peso</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="peso"
-                placeholder="Insira o peso do Animal"
-                name="peso"
-                value={form.peso}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="raca">Raça</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="raca"
-                placeholder="Insira a raça do Animal"
-                name="raca"
-                value={form.raca}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="alergia">Alergia</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="alergia"
-                placeholder="Insira a alergia do Animal"
-                name="alergia"
-                value={form.alergia}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="cor">Cor</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="cor"
-                placeholder="Insira a cor do Animal"
-                name="cor"
-                value={form.cor}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="especie">Espécie</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="especie"
-                placeholder="Insira a espécie do Animal"
-                name="especie"
-                value={form.especie}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Group className="mb-3">
-              <Form.Label htmlFor="proprietario">Proprietário (ID Cliente)</Form.Label>
-              <Form.Control
-                required
-                type="text"
-                id="proprietario"
-                placeholder="Insira o ID do Cliente"
-                name="proprietario"
-                value={form.proprietario}
-                onChange={handleChange}
-              />
-            </Form.Group>
-          </Col>
-        </Row>  
-        <Button variant="primary" type="submit">
-          Cadastrar
-        </Button>
-      </Form>
-    </Container>
+    <>
+      <NavigationBar />
+      <Container>
+        <Card
+          className="p-4 my-4 shadow-sm border-dark"
+          style={{ borderRadius: "15px" }}
+        >
+          <Card.Body>
+            <Card.Title
+              className="text-center mb-5"
+              style={{ color: "#4caf50", fontSize: "2rem" }}
+            >
+              Cadastrar Novo Animal
+            </Card.Title>
+            <Form onSubmit={handleSubmit}>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="nome">
+                    <Form.Label className="modern-label">
+                      Nome do Animal
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira o nome completo do Animal"
+                      name="nome"
+                      value={form.nome}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="idAnimal">
+                    <Form.Label className="modern-label">
+                      Número da matrícula
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira o número da matrícula"
+                      name="idAnimal"
+                      value={form.idAnimal}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="sexo">
+                    <Form.Label className="modern-label">Sexo</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira o sexo do Animal"
+                      name="sexo"
+                      value={form.sexo}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="idade">
+                    <Form.Label className="modern-label">Idade</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira a idade do Animal"
+                      name="idade"
+                      value={form.idade}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="peso">
+                    <Form.Label className="modern-label">Peso</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira o peso do Animal"
+                      name="peso"
+                      value={form.peso}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="raca">
+                    <Form.Label className="modern-label">Raça</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira a raça do Animal"
+                      name="raca"
+                      value={form.raca}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="alergia">
+                    <Form.Label className="modern-label">Alergia</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira a alergia do Animal"
+                      name="alergia"
+                      value={form.alergia}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="cor">
+                    <Form.Label className="modern-label">Cor</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira a cor do Animal"
+                      name="cor"
+                      value={form.cor}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+                <Col md={4}>
+                  <Form.Group controlId="especie">
+                    <Form.Label className="modern-label">Espécie</Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira a espécie do Animal"
+                      name="especie"
+                      value={form.especie}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <Row className="mb-4 justify-content-center">
+                <Col md={4}>
+                  <Form.Group controlId="proprietario">
+                    <Form.Label className="modern-label">
+                      Proprietário (ID Cliente)
+                    </Form.Label>
+                    <Form.Control
+                      required
+                      type="text"
+                      placeholder="Insira o ID do Cliente"
+                      name="proprietario"
+                      value={form.proprietario}
+                      onChange={handleChange}
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+              <div className="d-flex justify-content-center mt-4">
+                <Button
+                  variant="secondary"
+                  onClick={() => navigate(-1)}
+                  className="me-3"
+                  style={{ borderRadius: "20px" }}
+                >
+                  Voltar
+                </Button>
+                <Button
+                  variant="primary"
+                  type="submit"
+                  style={{ borderRadius: "20px" }}
+                >
+                  Cadastrar
+                </Button>
+              </div>
+            </Form>
+          </Card.Body>
+        </Card>
+      </Container>
+    </>
   );
 }
 
