@@ -13,7 +13,7 @@ import AddAnimal from "./components/Animal/AddAnimal/AddAnimal";
 import AnimalDetails from "./components/Animal/AnimalDetails/AnimalDetails";
 import EditAnimal from "./components/Animal/EditAnimal/EditAnimal";
 import AdminList from "./components/Administradores/AdminList";
-import Login from "./Login"
+import Login from "./Login";
 function App() {
   const apiURL = "http://localhost:8080";
 
@@ -30,19 +30,18 @@ function App() {
     especie: "",
     cor: "",
     prorietario: "",
-    foto: "",
-    email: "",  // Adicionando emailFunc para login
-    senha: "", 
+    foto: "",    senha: "", 
   });
 
   return (
     <div className="App bg-light" style={{ height: "100vh" }}>
-      <NavigationBar />
       <Routes>
+      
       <Route
           path="/"
           element={<Login apiURL={apiURL} form={form} setForm={setForm} />}
         />
+
       <Route
           path="/administradores"
           element={<AdminList apiURL={apiURL} />}

@@ -3,6 +3,7 @@ import { useEffect,useState } from "react";
 import { Button, Col, Container, Form, Row,Modal  } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { IMaskInput } from "react-imask";
+import NavigationBar from "../../NavigationBar/NavigationBar";
 
 
 function AddCliente({ apiURL, form, setForm }) {
@@ -50,6 +51,8 @@ function AddCliente({ apiURL, form, setForm }) {
   }, []);
 
   return (
+    <>
+    <NavigationBar /> 
     <Container>
       <p />
       <h2>Cadastrar Novo Proprietário</h2>
@@ -192,7 +195,9 @@ function AddCliente({ apiURL, form, setForm }) {
         <p />
       </Form>
     </Container>
+    </>
   );
+
 }
 
 export default AddCliente;
