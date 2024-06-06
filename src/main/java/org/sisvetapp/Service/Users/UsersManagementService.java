@@ -13,40 +13,44 @@ import org.springframework.stereotype.Service;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class UsersManagementService {
 
     @Autowired
     private UsersRepo usersRepo;
+
     @Autowired
     private JWTUtils jwtUtils;
+
     @Autowired
     private AuthenticationManager authenticationManager;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-
-    public ReqRes register(ReqRes registrationRequest){
+    public ReqRes register(ReqRes registrationRequest) {
         ReqRes resp = new ReqRes();
-
         try {
+            String email = registrationRequest.getEmail();
+            // Verificar se o e-mail já está cadastrado
+            if (usersRepo.findByEmail(email).isPresent()) {
+                resp.setStatusCode(400);
+                resp.setMessage("E-mail já cadastrado");
+                return resp;
+            }
             OurUsers ourUser = new OurUsers();
             ourUser.setEmail(registrationRequest.getEmail());
             ourUser.setCity(registrationRequest.getCity());
             ourUser.setRole(registrationRequest.getRole());
             ourUser.setName(registrationRequest.getName());
             ourUser.setPassword(passwordEncoder.encode(registrationRequest.getPassword()));
-            OurUsers ourUsersResult = usersRepo.save(ourUser);
-            if (ourUsersResult.getId()>0) {
-                resp.setOurUsers((ourUsersResult));
-                resp.setMessage("User Saved Successfully");
-                resp.setStatusCode(200);
-            }
-
-        }catch (Exception e){
+            OurUsers savedUser = usersRepo.save(ourUser);
+            resp.setOurUsers(savedUser);
+            resp.setStatusCode(200);
+            resp.setMessage("Usuário cadastrado com sucesso");
+        } catch (Exception e) {
             resp.setStatusCode(500);
-            resp.setError(e.getMessage());
+            resp.setMessage(e.getMessage());
         }
         return resp;
     }

@@ -1,96 +1,71 @@
-
-import React, {useEffect ,useState, Select } from "react";
-import { Container, Form, Button,Col } from "react-bootstrap";
-import Image from 'react-bootstrap/Image';
-import Logo from './images/vet.png';
+import React, { useState } from "react";
+import { Container, Form, Button, Col } from "react-bootstrap";
+import Image from "react-bootstrap/Image";
+import Logo from "./images/vet.png";
 import "./index.css";
-import axios from "axios";
+import UserService from "./components/service/UserService";
 import { useNavigate } from "react-router-dom";
 
-function Login({ apiURL, form, setForm }) {
+function Login() {
   const navigate = useNavigate();
-  const path = "/auth/login";
-  const url = `${apiURL}${path}`;
-  
-  const handleChange = (e) => {
-    //monitoramento dos inputs
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Attempting login with", { email, password });
 
     try {
-      const response = await axios.post(url, form);
-      navigate("/listarClientes");
-    } catch (error) {
-      if (error.response && error.response.status === 403) {
-        // Usuário não tem permissão para acessar o recurso
-        alert("Você não tem permissão para login.");
+      const userData = await UserService.login(email, password);
+      console.log("User Data Received:", userData);
+
+      if (userData.token) {
+        localStorage.setItem("token", userData.token);
+        navigate("/listarClientes");
       } else {
-        // Outro erro ocorreu
-        console.error("Erro:", error.message);
+        setError(userData.message || "Erro desconhecido");
       }
+    } catch (error) {
+      console.error("Erro no login:", error.message);
+      setError(error.message);
+      setTimeout(() => setError(""), 5000);
     }
   };
 
-
-  useEffect(() => {
-    setForm({
-      nome:"",
-      email: "",
-      senha: "",
-    });
-  }, [setForm]);
-
   return (
-  
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-dark p-5">
+    <div className="container d-flex justify-content-center align-items-center vh-100">
       <Col xs={6} md={4}>
-          <Image src={Logo}  />
-        </Col>
-      <Container className="p-5 bg-success text-white border border-success-subtle" style={{ maxWidth: "500px", borderRadius: "10px" } }>
-        <h1>Cadastro de Usuario</h1>
+        <Image src={Logo} />
+      </Col>
+      <Container className="p-5 bg-success text-white border border-success-subtle" style={{ maxWidth: "500px", borderRadius: "10px" }}>
+        <h1>Login</h1>
         <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="formNome">
-            <Form.Label className="mb-3">Nome</Form.Label>
-           <Form.Control
-                required
-                type="text"
-                placeholder="Insira o Nome do funcionario"
-                name="nome"
-                value={form.nome}
-                onChange={handleChange}
-              />
-          </Form.Group>
-          <Form.Group controlId="formEmail">
-            <Form.Label className="mb-3">Email</Form.Label>
-           <Form.Control
-                required
-                type="email"
-                placeholder="Insira o Email do funcionario"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-              />
-          </Form.Group>
-
-          <Form.Group controlId="formSenha">
-            <Form.Label className="mb-3">Senha</Form.Label>
+          {error && <div className="alert alert-danger">{error}</div>}
+          <Form.Group controlId="formEmail" className="mb-3">
+            <Form.Label>Email</Form.Label>
             <Form.Control
-                required
-                type="password"
-                placeholder="Insira a senha de acesso do Funcionario"
-                name="senha"
-                value={form.senha}
-                onChange={handleChange}
-              />
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </Form.Group>
-
-        
-          <Button variant="light" type="submit" className="mb-0 m-3">
+          <Form.Group controlId="formPassword" className="mb-3">
+            <Form.Label>Senha</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Form.Group>
+          <Button variant="light" type="submit" className="mb-3">
             Login
           </Button>
+       
         </Form>
       </Container>
     </div>

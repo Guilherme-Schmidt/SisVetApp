@@ -1,18 +1,24 @@
 import axios from "axios";
 
-class UserService{
-    static BASE_URL = "http://localhost:8080"
-
-    static async login(email, password){
-        try{
-            const response = await axios.post(`${UserService.BASE_URL}/auth/login`, {email, password})
-            return response.data;
-
-        }catch(err){
-            throw err;
+class UserService {
+    static BASE_URL = "http://localhost:8080";
+  
+    static async login(email, password) {
+        try {
+          const response = await axios.post(`${UserService.BASE_URL}/auth/login`, { email, password });
+          console.log("Login response data:", response.data); // Log para verificar a resposta do backend
+          return response.data;
+        } catch (err) {
+          if (err.response && err.response.data) {
+            console.error("Login error data:", err.response.data); // Log para verificar o erro
+            throw new Error(err.response.data.message || "Erro na autenticação");
+          } else {
+            console.error("Network or server error:", err); // Log para erros de rede
+            throw new Error("Erro de rede ou servidor indisponível");
+          }
         }
-    }
-
+      }
+  
     static async register(userData, token){
         try{
             const response = await axios.post(`${UserService.BASE_URL}/auth/register`, userData, 
@@ -105,7 +111,7 @@ class UserService{
     /**AUTHENTICATION CHECKER */
     static logout(){
         localStorage.removeItem('token')
-        localStorage.removeItem('role')
+       
     }
 
     static isAuthenticated(){
@@ -113,19 +119,7 @@ class UserService{
         return !!token
     }
 
-    static isAdmin(){
-        const role = localStorage.getItem('role')
-        return role === 'ADMIN'
-    }
-
-    static isUser(){
-        const role = localStorage.getItem('role')
-        return role === 'USER'
-    }
-
-    static adminOnly(){
-        return this.isAuthenticated() && this.isAdmin();
-    }
+   
 
 }
 

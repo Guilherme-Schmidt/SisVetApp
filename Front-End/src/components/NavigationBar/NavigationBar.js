@@ -9,8 +9,7 @@ function NavigationBar() {
   }
 
   return (
-    <Navbar bg="primary" variant="primary" expand="lg">
-      <Container>
+    <Navbar bg="success" variant="success" fluid>    
         <Navbar.Brand>SisVetApp</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -38,7 +37,7 @@ function NavigationBar() {
             </Link>
           </Nav>
         </Navbar.Collapse>
-      </Container>
+
     </Navbar>
   );
 }
