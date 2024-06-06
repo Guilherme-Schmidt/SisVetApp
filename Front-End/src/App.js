@@ -1,7 +1,9 @@
+import React, { useState } from "react";
+import { Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
-import { useState } from "react";
+
+// Importar componentes
 import ErrorPage from "./pages/ErrorPage";
 import ClienteList from "./components/GovEmployee/ClienteList/ClienteList";
 import ClienteDetails from "./components/GovEmployee/ClienteDetails/ClienteDetails";
@@ -18,6 +20,7 @@ import UserManagementPage from "./components/userspage/UserManagementPage";
 function App() {
   const apiURL = "http://localhost:8080";
 
+  // Estado para o formulário
   const [form, setForm] = useState({
     idCliente: "",
     nome: "",
@@ -30,79 +33,33 @@ function App() {
     raca: "",
     especie: "",
     cor: "",
-    prorietario: "",
+    proprietario: "",
     foto: "",
     senha: "",
   });
 
   return (
-    <div className="App bg-light" style={{ height: "100vh" }}>
-      <Routes>
-        <Route
-          path="/profilePage"
-          element={
-            <ProfilePage apiURL={apiURL} form={form} setForm={setForm} />
-          }
-        />
-        
-        <Route
-          path="/userManagement"
-          element={
-            <UserManagementPage apiURL={apiURL} form={form} setForm={setForm} />
-          }
-        />
+    <Routes>
+      {/* Rotas para os diferentes componentes */}
+      <Route path="/profilePage" element={<ProfilePage apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/userManagement" element={<UserManagementPage apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/" element={<Login apiURL={apiURL} form={form} setForm={setForm} />} />
 
-        <Route
-          path="/"
-          element={<Login apiURL={apiURL} form={form} setForm={setForm} />}
-        />
+      {/* Rotas para os clientes */}
+      <Route path="/listarClientes" element={<ClienteList apiURL={apiURL} />} />
+      <Route path="/listarCliente/:idCliente" element={<ClienteDetails apiURL={apiURL} />} />
+      <Route path="/cadastrarCliente" element={<AddCliente apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/editarCliente/:idCliente" element={<EditCliente apiURL={apiURL} form={form} setForm={setForm} />} />
 
-        <Route
-          path="/listarClientes"
-          element={<ClienteList apiURL={apiURL} />}
-        />
-        <Route
-          path="/listarCliente/:idCliente"
-          element={<ClienteDetails apiURL={apiURL} />}
-        />
-        <Route
-          path="/cadastrarCliente"
-          element={<AddCliente apiURL={apiURL} form={form} setForm={setForm} />}
-        />
-        <Route
-          path="/editarCliente/:idCliente"
-          element={
-            <EditCliente apiURL={apiURL} form={form} setForm={setForm} />
-          }
-        />
+      {/* Rotas para os animais */}
+      <Route path="/listarAnimais" element={<AnimalList apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/cadastrarAnimal" element={<AddAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/listarAnimal/:idAnimal" element={<AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/editarAnimal/:idAnimal" element={<EditAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
 
-        {/* ANIMAL */}
-
-        <Route path="*" element={<ErrorPage />} />
-        <Route
-          path="/listarAnimais"
-          element={<AnimalList apiURL={apiURL} form={form} setForm={setForm} />}
-        />
-        <Route
-          path="/cadastrarAnimal"
-          element={<AddAnimal apiURL={apiURL} form={form} setForm={setForm} />}
-        />
-        <Route
-          path="/listarAnimal/:idAnimal"
-          element={
-            <AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />
-          }
-        />
-        <Route
-          path="/editarAnimal/:idAnimal"
-          element={<EditAnimal apiURL={apiURL} form={form} setForm={setForm} />}
-        />
-
-        {/* GERAL */}
-
-        <Route />
-      </Routes>
-    </div>
+      {/* Rota de erro */}
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
   );
 }
 

@@ -29,7 +29,7 @@ function ClienteList({ apiURL }) {
     try {
       await axios.delete(`${apiURL}/excluirCliente/${idCliente}`);
       // Remover o cliente excluído da lista local
-      setClientes(clientes.filter(cliente => cliente.idCliente !== idCliente));
+      setClientes(clientes.filter((cliente) => cliente.idCliente !== idCliente));
     } catch (error) {
       console.error("Erro ao excluir cliente:", error);
     }
@@ -78,16 +78,15 @@ function ClienteList({ apiURL }) {
   return (
     <>
       <NavigationBar /> {/* Movendo a NavigationBar para fora do Container */}
-      <Container >
-        <Form className="my-5 ">
+      <Container>
+        <Form className="my-5">
           <Form.Control
-         
             type="search"
             placeholder="Buscar por nome"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <Button variant="success" size="md" className="mt-4">
+          <Button variant="success" size="md" className="mt-4 d-block mx-auto"> {/* Adicionando classe d-block para transformar o botão em um elemento de bloco e mx-auto para centralizá-lo horizontalmente */}
             <Link
               className="nav-link"
               to="/cadastrarCliente"
