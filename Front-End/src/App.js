@@ -11,8 +11,10 @@ import AnimalList from "./components/Animal/AnimalList/AnimalList";
 import AddAnimal from "./components/Animal/AddAnimal/AddAnimal";
 import AnimalDetails from "./components/Animal/AnimalDetails/AnimalDetails";
 import EditAnimal from "./components/Animal/EditAnimal/EditAnimal";
-import AdminList from "./components/Administradores/AdminList";
 import Login from "./Login";
+import ProfilePage from "./components/userspage/ProfilePage";
+import UserManagementPage from "./components/userspage/UserManagementPage";
+
 function App() {
   const apiURL = "http://localhost:8080";
 
@@ -29,22 +31,32 @@ function App() {
     especie: "",
     cor: "",
     prorietario: "",
-    foto: "",    senha: "", 
+    foto: "",
+    senha: "",
   });
 
   return (
     <div className="App bg-light" style={{ height: "100vh" }}>
       <Routes>
-      
-      <Route
+        <Route
+          path="/profilePage"
+          element={
+            <ProfilePage apiURL={apiURL} form={form} setForm={setForm} />
+          }
+        />
+        
+        <Route
+          path="/userManagement"
+          element={
+            <UserManagementPage apiURL={apiURL} form={form} setForm={setForm} />
+          }
+        />
+
+        <Route
           path="/"
           element={<Login apiURL={apiURL} form={form} setForm={setForm} />}
         />
 
-      <Route
-          path="/administradores"
-          element={<AdminList apiURL={apiURL} />}
-        />
         <Route
           path="/listarClientes"
           element={<ClienteList apiURL={apiURL} />}
