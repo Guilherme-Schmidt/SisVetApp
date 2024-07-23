@@ -16,6 +16,8 @@ import EditAnimal from "./components/Animal/EditAnimal/EditAnimal";
 import Login from "./Login";
 import ProfilePage from "./components/userspage/ProfilePage";
 import UserManagementPage from "./components/userspage/UserManagementPage";
+import AddProduto from "./components/Produto/ProdutoList/AddProduto";
+import ProdutoList from "./components/Produto/ProdutoList/ProdutoList";
 
 function App() {
   const apiURL = "http://localhost:8080";
@@ -54,6 +56,12 @@ function App() {
       {/* Rotas para os animais */}
       <Route path="/listarAnimais" element={<AnimalList apiURL={apiURL} form={form} setForm={setForm} />} />
       <Route path="/cadastrarAnimal" element={<AddAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/listarAnimal/:idAnimal" element={<AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/editarAnimal/:idAnimal" element={<EditAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
+
+      {/* Rotas para os Produtos */}
+      <Route path="/listarProdutos" element={<ProdutoList apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/cadastrarProdutos" element={<AddProduto apiURL={apiURL} form={form} setForm={setForm} />} />
       <Route path="/listarAnimal/:idAnimal" element={<AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />} />
       <Route path="/editarAnimal/:idAnimal" element={<EditAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
 

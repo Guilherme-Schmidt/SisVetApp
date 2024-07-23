@@ -1,0 +1,13 @@
+/* ProductList.css */
+
+.container {
+    margin-left: 250px; /* Ajuste conforme a largura do seu menu lateral */
+    padding: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      margin-left: 200px; /* Ajuste para telas menores, se necessário */
+    }
+  }
+  

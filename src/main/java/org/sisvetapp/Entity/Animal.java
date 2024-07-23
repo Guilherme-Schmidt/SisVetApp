@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class Animal {
 
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idAnimal;
     private String nome;
     private int idade;

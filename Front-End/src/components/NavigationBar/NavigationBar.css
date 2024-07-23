@@ -1,0 +1,36 @@
+/* NavigationBar.css */
+
+.vertical-navbar {
+  width: 250px; /* Largura padrão do menu lateral */
+  height: 100vh; /* Altura total da tela */
+  background-color: #343a40; /* Cor de fundo do menu lateral */
+  position: fixed; /* Fixa o menu lateral na tela */
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Garante que o menu fique acima dos outros elementos */
+  transition: transform 0.3s ease; /* Transição suave para abrir e fechar */
+}
+
+.logo {
+  width: 100%; /* Faz com que o logo se ajuste à largura do menu */
+  padding: 10px;
+}
+
+.nav-links {
+  margin-top: 20px; /* Espaçamento acima dos links */
+}
+
+.nav-links .btn {
+  width: 100%; /* Faz com que os botões ocupem toda a largura do menu */
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+@media (max-width: 768px) {
+  .vertical-navbar {
+    width: 200px; /* Largura menor para telas pequenas */
+  }
+
+  .nav-links .btn {
+    font-size: 0.9rem; /* Ajuste o tamanho da fonte para telas menores */
+  }
+}
