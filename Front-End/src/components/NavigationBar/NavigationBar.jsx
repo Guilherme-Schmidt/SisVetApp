@@ -33,7 +33,7 @@ function NavigationBar() {
         <Link
           className="btn btn-outline-light btn-lg m-1"
           role="button"
-          to="/cadastrarProdutos"
+          to="/listarProdutos"
         >
           Produtos
         </Link>

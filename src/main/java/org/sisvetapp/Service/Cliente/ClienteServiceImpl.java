@@ -6,7 +6,6 @@ import org.sisvetapp.Repository.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,17 +22,14 @@ public class ClienteServiceImpl implements ClienteService {
     }
 
     @Override
-    public List<Cliente> listAllCliente() throws IOException {
-
+    public List<Cliente> listAllCliente() {
         List<Cliente> clientes = new ArrayList<>();
         clienteRepository.findAll().forEach(clientes::add);
-
         return clientes;
     }
 
     @Override
-    public Optional<Cliente> listByIdCliente(int idCliente) throws IOException {
-
+    public Optional<Cliente> listByIdCliente(int idCliente) {
         return clienteRepository.findById(idCliente);
     }
 
@@ -45,13 +41,9 @@ public class ClienteServiceImpl implements ClienteService {
     @Override
     public void updateCliente(Cliente cliente) {
         Optional<Cliente> clienteEncontrado = clienteRepository.findById(cliente.getIdCliente());
-
-        clienteEncontrado.ifPresent(
-                p-> {
-                    clienteRepository.save(cliente);
-                }
-        );
+        clienteEncontrado.ifPresent(p -> clienteRepository.save(cliente));
     }
+
     @Override
     public void deleteCliente(int idCliente) {
         Optional<Cliente> clienteOptional = clienteRepository.findById(idCliente);
@@ -79,5 +71,4 @@ public class ClienteServiceImpl implements ClienteService {
             throw new RuntimeException("Cliente não encontrado para o ID fornecido: " + idCliente);
         }
     }
-
 }
