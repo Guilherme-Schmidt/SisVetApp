@@ -48,7 +48,17 @@ public class ProdutoServiceImpl implements ProdutoService {
         produtoRepository.save(produto);
     }
 
-
+    @Override
+    public Produtos incrementarQuantidade(int idProduto) throws IOException {
+        Optional<Produtos> optionalProduto = produtoRepository.findById(idProduto);
+        if (optionalProduto.isPresent()) {
+            Produtos produto = optionalProduto.get();
+            produto.setQuantidade(produto.getQuantidade() + 1);
+            return produtoRepository.save(produto);
+        } else {
+            throw new IOException("Produto não encontrado com ID: " + idProduto);
+        }
+    }
 
 
 }

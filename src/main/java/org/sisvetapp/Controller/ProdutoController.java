@@ -13,9 +13,13 @@ import org.springframework.web.server.ResponseStatusException;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 @RestController
 public class ProdutoController {
+
+    private static final Logger logger = Logger.getLogger(ProdutoController.class.getName());
+
 
     @Autowired
     private ProdutoService produtoService;
@@ -80,6 +84,18 @@ public class ProdutoController {
             }
         } else {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado");
+        }
+    }
+
+    @PutMapping("/incrementar/{idProduto}")
+    public ResponseEntity<Produtos> incrementarQuantidade(@PathVariable int idProduto) {
+        logger.info("Incrementando quantidade do produto com ID: " + idProduto);
+        try {
+            Produtos updatedProduto = produtoService.incrementarQuantidade(idProduto);
+            return ResponseEntity.ok(updatedProduto);
+        } catch (Exception e) {
+            logger.severe("Erro ao incrementar quantidade do produto: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 

@@ -22,4 +22,6 @@ public interface ProdutoService  {
     Optional<Produtos> findByIdProduto(int idProduto);
 
     void deleteProduto(int idProduto);
+
+    Produtos incrementarQuantidade(int idProduto) throws IOException;
 }

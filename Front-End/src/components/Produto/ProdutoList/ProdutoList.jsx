@@ -28,10 +28,21 @@ function ProductList({ apiURL }) {
 
   const deleteProduct = async (idProduto) => {
     try {
-      const response = await axios.delete(`${apiURL}/deletarProduto/${idProduto}`);
-      setProducts(products.filter(product => product.idProduto !== idProduto || product.quantidade > 1));
+      await axios.delete(`${apiURL}/deletarProduto/${idProduto}`);
+      setProducts(products.filter(product => product.idProduto !== idProduto));
     } catch (error) {
       console.error("Erro ao excluir o produto:", error);
+    }
+  };
+
+  const incrementarQuantidade = async (idProduto) => {
+    try {
+      const response = await axios.put(`${apiURL}/incrementar/${idProduto}`);
+      setProducts(products.map(product =>
+        product.idProduto === idProduto ? { ...product, quantidade: response.data.quantidade } : product
+      ));
+    } catch (error) {
+      console.error("Erro ao incrementar quantidade do produto:", error);
     }
   };
 
@@ -45,20 +56,6 @@ function ProductList({ apiURL }) {
         <td>{product.categoria}</td>
         <td>{product.quantidade}</td>
         <td style={{ width: "250px" }}>
-          <Link
-            className="btn btn-warning btn-sm m-1"
-            role="button"
-            to={`/listarProduto/${product.idProduto}`}
-          >
-            Detalhar
-          </Link>
-          <Link
-            className="btn btn-outline-secondary btn-sm m-1"
-            role="button"
-            to={`/editarProduto/${product.idProduto}`}
-          >
-            Alterar
-          </Link>
           <Button
             variant="danger"
             size="sm"
@@ -69,6 +66,14 @@ function ProductList({ apiURL }) {
             }}
           >
             Excluir
+          </Button>
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={() => incrementarQuantidade(product.idProduto)}
+            className="m-1"
+          >
+            Aumentar Estoque
           </Button>
         </td>
       </tr>
