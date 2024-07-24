@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 public interface CompraService {
 
 
-    List<Compra> findAll();
-
     Optional<Compra> findById(Long idCompra);
 
     Compra save(Compra compra);
@@ -25,4 +23,8 @@ public interface CompraService {
     void deleteById(Long idCompra);
 
     List<Compra> findByProprietarioId(Long idCliente);
+
+    List<Compra> listAllCompras();
+
+    List<Compra> findComprasByClienteId(Long idCliente);
 }

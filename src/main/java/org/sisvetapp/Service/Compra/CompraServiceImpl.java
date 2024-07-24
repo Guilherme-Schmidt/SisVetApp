@@ -26,7 +26,7 @@ public class CompraServiceImpl implements CompraService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public List<Compra> findAll() {
+    public List<Compra> listAllCompras() {
         return compraRepository.findAll();
     }
 
@@ -38,7 +38,6 @@ public class CompraServiceImpl implements CompraService {
     public Compra save(Compra compra) {
         logger.info("Saving compra: " + compra);
 
-        // Verificar e atualizar o produto
         Produtos produto = compra.getProdutos();
         if (produto != null) {
             Optional<Produtos> optionalProduto = produtoRepository.findById(produto.getIdProduto());
@@ -48,6 +47,7 @@ public class CompraServiceImpl implements CompraService {
 
                 if (produtoBD.getQuantidade() > 0) {
                     produtoBD.setQuantidade(produtoBD.getQuantidade() - 1);
+                    logger.info("Atualizando produto com nova quantidade: " + produtoBD.getQuantidade());
                     produtoRepository.save(produtoBD);
                 } else {
                     throw new RuntimeException("Produto fora de estoque.");
@@ -57,13 +57,19 @@ public class CompraServiceImpl implements CompraService {
             }
         }
 
-        // Verificar e atualizar o cliente
         Cliente cliente = compra.getProprietario();
         if (cliente != null) {
-            // Aqui você pode implementar lógica similar para verificar e atualizar cliente se necessário
+            // Lógica para atualizar cliente se necessário
+            logger.info("Atualizando cliente: " + cliente);
         }
 
-        return compraRepository.save(compra);
+        Compra savedCompra = compraRepository.save(compra);
+        logger.info("Compra salva: " + savedCompra);
+        return savedCompra;
+    }
+
+    public List<Compra> findComprasByClienteId(Long idCliente) {
+        return compraRepository.findByProprietario_IdCliente(idCliente);
     }
 
     public void deleteById(Long idCompra) {

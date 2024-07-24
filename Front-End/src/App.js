@@ -18,6 +18,8 @@ import ProfilePage from "./components/userspage/ProfilePage";
 import UserManagementPage from "./components/userspage/UserManagementPage";
 import AddProduto from "./components/Produto/ProdutoList/AddProduto";
 import ProdutoList from "./components/Produto/ProdutoList/ProdutoList";
+import Compras from "./components/Produto/Compras"
+import ComprasList from "./components/Produto/ComprasList"
 
 function App() {
   const apiURL = "http://localhost:8080";
@@ -62,8 +64,8 @@ function App() {
       {/* Rotas para os Produtos */}
       <Route path="/listarProdutos" element={<ProdutoList apiURL={apiURL} form={form} setForm={setForm} />} />
       <Route path="/cadastrarProdutos" element={<AddProduto apiURL={apiURL} form={form} setForm={setForm} />} />
-      <Route path="/listarAnimal/:idAnimal" element={<AnimalDetails apiURL={apiURL} form={form} setForm={setForm} />} />
-      <Route path="/editarAnimal/:idAnimal" element={<EditAnimal apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/compras" element={<Compras apiURL={apiURL} form={form} setForm={setForm} />} />
+      <Route path="/listarCompras" element={<ComprasList apiURL={apiURL} form={form} setForm={setForm} />} />
 
       {/* Rota de erro */}
       <Route path="*" element={<ErrorPage />} />
